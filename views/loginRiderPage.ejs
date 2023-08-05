@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Rider.css">
+</head>
+<body>
+    <div class="headDive">
+       <h1>welcome  <%=userM%>  </h1>
+       <a href="/logout" id="logout" >log-out</a>
+    </div>
+    <div id="map"></div>
+   
+    
+    <div class="container"> 
+        <div class="content">
+            <button onclick="getlocation()"  id="location-button">get location</button><p></p>
+            <form>
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details"></span>
+                        
+                        <input type="text" id="originField"   placeholder="Enter your origin" maxlength="20" minlength="3" class="fetchData" required></div>
+          <div class="input-box"> 
+            <span class="details"></span>
+            <input type="text" id="EmailField"  placeholder="Enter your destination" class="fetchData" required>
+          </div>
+        </div>
+        <div class="gender-details">
+          
+          <input type="radio" name="Two_wheeler" value="Two_wheeler" id="dot-1" >
+          <input type="radio" name="Four_wheeler" value="Four_wheeler" id="dot-2" >
+         
+         
+          <span class="gender-title">Mode of Treval</span>
+          <div class="category">
+            <label for="dot-1">
+              <span class="dot one"></span>
+              <span class="gender">Two-wheeler</span>
+            </label>
+            <label for="dot-2">
+              <span class="dot two"></span>
+              <span class="gender">Four-wheeler</span>
+            </label>
+            <label for="dot-3"> <select name="vehica" id="dot-3">
+              <option value="Wagnar" id="FirstVehical">Available</option>
+              <option value="Wagnar" id="SecondVehical"></option>
+              <option value="Wagnar" id="ThirdVehical" ></option>
+            </select>
+            </label>
+          </div>
+        </div>
+        <div class="button">
+          <button type="button" onclick="submitFunction()" value="book" id="registrationSubmit">book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+</body>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwH7jb8KfmbPi3RoU-uU2oqZXt9e7EGzE&callback=initMap&v=weekly"
+    async>
+
+    </script>
+<script>
+
+
+    const   getlocation = ()=>{
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showPosition,showError)
+      }
+      else{
+        alert("GeoLocator is not supported by this browser")
+      }
+    }
+    
+    const showPosition =(position)=>{
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        const des = document.querySelector("p"); 
+        console.log(lat , long)   
+   // apikey = AIzaSyCqnKefMComMGAFW1L_ju1AFwaeQxuGkog
+
+fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${long}&key=9171d626db6548f8b0bd00e4df11a4c4`)
+.then(response => response.json()).then(result => {
+    let allDetails = result.results[0].components;
+    let {county ,postcode , country} = allDetails
+    des.innerHTML = `${county} ${postcode} ${country}`;
+    alert(`your location: ${county} ${postcode} ${country}`);
+    console.log(result);
+})
+}
+
+    const showError = (error)=>{
+       switch(error.code){
+        case error.PERMISSION_DENIED:
+        alert("User denied the request for geolocation");
+        break;
+ 
+      case error.POSITION_UNAVAILABLE:
+        alert('Location information is unavilable');
+        break;
+
+        case error.TIMEOUT:
+         alert("The request to get user location timed out.");
+         break;
+         case error.UNKNOWN_ERROR:
+         alert("An unknown error occurred");
+         break;
+         default:
+          alert("An unknown error occurred");
+      }
+    }     
+
+ 
+  let map;
+
+function initMap() {
+    
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 27.1766701, lng: 78.0080745 },
+        zoom: 8,
+    });
+}
+
+
+/// driving mode 
+
+let Two_wheeler = document.getElementById("dot-1");
+Two_wheeler.addEventListener('click',changeFunc);
+
+
+let Four_wheeler = document.getElementById("dot-2");
+Four_wheeler.addEventListener('click',changeFourFunc)
+
+
+function changeFunc(){
+  let FirstVehical = document.getElementById("FirstVehical");
+  FirstVehical.innerHTML = "Discover";
+
+  let SecondVehical = document.getElementById("SecondVehical");
+  SecondVehical.innerHTML = "Splender";
+
+  let ThirdVehical = document.getElementById("ThirdVehical");
+  ThirdVehical.innerHTML = "Scooty";
+}
+
+
+function changeFourFunc(){
+  
+  let FirstVehical = document.getElementById("FirstVehical");
+  FirstVehical.innerHTML = "Aulto";
+
+  let SecondVehical = document.getElementById("SecondVehical");
+  SecondVehical.innerHTML = "Scorpio";
+
+  let ThirdVehical = document.getElementById("ThirdVehical");
+  ThirdVehical.innerHTML = "Swift";
+
+}
+
+let registrationSubmit = document.getElementById("registrationSubmit");
+// registrationSubmit.addEventListener(,submitFunc);
+
+function submitFunction(){
+
+   confirm("booked");
+
+}
+</script>
+</html>

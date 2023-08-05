@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style3.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  <div class="container">
+    <div class="title">Driver Registration</div>
+    <div class="content">
+      <form action="/driverregistration" method="post" onsubmit="return myfunc()">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Full Name</span>
+            <input type="text" id="namevala" placeholder="Enter your name" name="dName" maxlength="20" minlength="3" required>
+            <p id="Namerror"></p>
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" name="Email" placeholder="Enter your email" required>
+          </div>
+          <div class="input-box">
+            <span class="detailsj">Phone Number</span>
+            <input id="numbervali" name="Dnumber" type="tel" placeholder="Enter your number"  required >
+            <p id="error"></p>
+          </div>
+          <div class="input-box">
+            <span class="details">Aadhar Number</span>
+            <input type="number" name="DAdhar" id="Adharid" placeholder="Enter your number" required>
+            <p id="Adharerror"></p>
+          </div>
+          <div class="input-box">
+            <span class="details">Vehicle Number</span>
+            <input type="text" name="DWhical_number" placeholder="Enter your number" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Vehicle-name</span>
+            <input type="text" name="Dwhical_name" placeholder="Enter your number" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="text" name="Dpassword" id="passwordid" placeholder="Enter your password" required>
+            <p id="passerror"></p> 
+          </div>
+          <div class="input-box">
+            <span class="details">Confirm Password</span>
+            <input type="password" name="Dconpassword" id="conpassid" placeholder="Confirm your password" required>
+            <p id="conpasserror"></p>
+          </div>
+        </div>
+        <div class="gender-details"  >
+          <input type="radio" name="gender" value="Male" id="dot-1">
+          <input type="radio" name="gender" value="Female" id="dot-2">
+          <input type="radio" name="gender" value="prefer not to say" id="dot-3">
+          <span class="gender-title">Gender</span>
+          <div class="category">
+            <label for="dot-1">
+            <span class="dot one"></span>
+            <span class="gender">Male</span>
+          </label>
+          <label for="dot-2">
+            <span class="dot two"></span>
+            <span class="gender">Female</span>
+          </label>
+          <label for="dot-3">
+            <span class="dot three"></span>
+            <span class="gender">Prefer not to say</span>
+            </label>
+          </div>
+        </div>
+        <div class="input-box">
+          <span class="details">Vehicle-Type</span>
+          <select name="Type" id="" required>
+            <option value="two-wheeler">two-wheeler</option>
+            <option value="three-wheeler">three-wheeler</option>
+            <option value="four-wheeler">four-wheeler</option>
+          </select>
+        </div>
+        <div class="button">
+          <input type="submit" value="Register">
+        </div>
+      </form>
+    </div>
+  </div>
+<script>
+// let flagg = 1;
+ function myfunc(){
+
+
+  let number = document.getElementById("numbervali");
+  let fristName = document.getElementById("namevala");
+  let pass = document.getElementById("passwordid");
+  let conpass = document.getElementById("conpassid");
+  let Adhaar = document.getElementById("Adharid");
+
+   
+
+  if(!isNaN(fristName.value)){
+    document.getElementById("Namerror").innerHTML = "number are not allowed"
+    return false;
+  }if(number.value.length>10){
+    document.getElementById("error").innerHTML="*10 digit only"
+     return false;
+  } if(number.value.length<10){
+    document.getElementById("error").innerHTML="*10 digit only"
+    return false;
+  }
+    
+  if(Adhaar.value.length >12){
+    document.getElementById("Adharerror").innerHTML = "invalid Adhaar";
+    return false;
+   }
+   
+  if(Adhaar.value.length <12){
+    document.getElementById("Adharerror").innerHTML = "invalid Adhaar";
+    return false;
+   }
+  if(pass.value.length <5 ){
+    document.getElementById("passerror").innerHTML = "password must be in 5 to 20 char"
+    return false;
+  }
+   
+  if(pass.value.length >21 ){
+    document.getElementById("passerror").innerHTML = "password must be in 5 to 20 char"
+    return false;
+  }
+  if(pass.value != conpass.value){
+    document.getElementById("conpasserror").innerHTML = "must be same password"
+    return false;
+   }
+   return true;
+  
+  }
+
+</script>
+</body>
+</html>
